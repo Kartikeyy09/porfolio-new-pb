@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import "../App.css"
 
 const links = [
     { name: 'Home', path: '/' },
@@ -15,44 +14,48 @@ export default function Navbar() {
     const location = useLocation()
 
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 60)
-        window.addEventListener('scroll', onScroll)
-        return () => window.removeEventListener('scroll', onScroll)
+        const fn = () => setScrolled(window.scrollY > 60)
+        window.addEventListener('scroll', fn)
+        return () => window.removeEventListener('scroll', fn)
     }, [])
 
     useEffect(() => { setOpen(false) }, [location])
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${scrolled ? 'glass-dark shadow-2xl shadow-black/20' : 'bg-transparent'
-                }`}
+            className={scrolled ? 'glass-nav' : ''}
+            style={{
+                position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+                transition: 'all 0.5s ease',
+                ...(!scrolled ? { background: 'transparent' } : {}),
+            }}
             role="navigation"
             aria-label="Main Navigation"
         >
-            <div className="max-w-7xl mx-auto px-5 sm:px-8">
-                <div className="flex justify-between items-center h-16 lg:h-20">
-                    {/* Logo */}
-                    <Link to="/" className="flex items-center gap-3 group" aria-label="Home">
-                        <div className="w-10 h-10 rounded-2xl gradient-rainbow flex items-center justify-center text-white font-bold text-lg font-display group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+            <div className="container-site">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '4.5rem' }}>
+                    <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }} aria-label="Home">
+                        <div className="gradient-rainbow" style={{ width: '2.5rem', height: '2.5rem', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 700, fontSize: '1.125rem', fontFamily: "'Space Grotesk', sans-serif", transition: 'transform 0.3s' }}>
                             P
                         </div>
-                        <div className="hidden sm:block">
-                            <span className="text-lg font-bold font-display text-gradient-rainbow">Pratishtha</span>
-                        </div>
+                        <span className="font-display text-gradient-rainbow" style={{ fontSize: '1.125rem', fontWeight: 700, display: 'none' }}>Pratishtha</span>
                     </Link>
 
                     {/* Desktop */}
-                    <div className="hidden md:flex items-center gap-2">
+                    <div style={{ display: 'none', alignItems: 'center', gap: '0.5rem' }} className="nav-desktop">
                         {links.map(link => {
                             const active = location.pathname === link.path
                             return (
                                 <Link
                                     key={link.name}
                                     to={link.path}
-                                    className={`px-5 py-2.5 rounded-2xl text-sm font-semibold font-display transition-all duration-300 ${active
-                                        ? 'gradient-rainbow text-white shadow-lg shadow-coral/20'
-                                        : 'text-dark-400 hover:text-white hover:bg-white/5'
-                                        }`}
+                                    className={`font-display ${active ? 'gradient-rainbow' : ''}`}
+                                    style={{
+                                        padding: '0.625rem 1.25rem', borderRadius: '1rem', fontSize: '0.875rem', fontWeight: 600,
+                                        color: active ? 'white' : '#a3a3a3',
+                                        ...(active ? { boxShadow: '0 4px 20px rgba(255,107,107,0.15)' } : {}),
+                                        transition: 'all 0.3s',
+                                    }}
                                     aria-current={active ? 'page' : undefined}
                                 >
                                     {link.name}
@@ -61,48 +64,78 @@ export default function Navbar() {
                         })}
                         <Link
                             to="/contact"
-                            className="ml-3 gradient-sunset text-dark-900 px-6 py-2.5 rounded-2xl text-sm font-bold font-display hover:shadow-lg hover:shadow-sunny/25 hover:scale-105 transition-all duration-300"
+                            className="gradient-sunset font-display"
+                            style={{ marginLeft: '0.75rem', padding: '0.625rem 1.5rem', borderRadius: '1rem', fontSize: '0.875rem', fontWeight: 700, color: '#171717', boxShadow: '0 4px 20px rgba(255,217,61,0.15)', transition: 'all 0.3s' }}
                         >
                             Let's Talk ✨
                         </Link>
                     </div>
 
-                    {/* Mobile */}
+                    {/* Mobile toggle */}
                     <button
                         onClick={() => setOpen(!open)}
-                        className="md:hidden p-2 rounded-xl text-dark-400 hover:text-white hover:bg-white/5 transition-colors"
+                        className="nav-mobile-btn"
+                        style={{ padding: '0.5rem', borderRadius: '0.75rem', color: '#a3a3a3', background: 'transparent', border: 'none' }}
                         aria-label={open ? 'Close menu' : 'Open menu'}
                         aria-expanded={open}
                     >
-                        {open ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
+                        {open ? <XMarkIcon style={{ width: '1.5rem', height: '1.5rem' }} /> : <Bars3Icon style={{ width: '1.5rem', height: '1.5rem' }} />}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Menu */}
-            <div className={`md:hidden transition-all duration-500 overflow-hidden ${open ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="glass-dark border-t border-white/5 px-5 py-5 space-y-2">
-                    {links.map(link => {
-                        const active = location.pathname === link.path
-                        return (
-                            <Link
-                                key={link.name}
-                                to={link.path}
-                                className={`block px-5 py-3 rounded-2xl text-sm font-semibold font-display transition-all ${active ? 'gradient-rainbow text-white' : 'text-dark-400 hover:text-white hover:bg-white/5'
-                                    }`}
-                            >
-                                {link.name}
-                            </Link>
-                        )
-                    })}
-                    <Link
-                        to="/contact"
-                        className="block text-center gradient-sunset text-dark-900 px-5 py-3 rounded-2xl text-sm font-bold font-display mt-3"
-                    >
-                        Let's Talk ✨
-                    </Link>
+            {/* Mobile menu */}
+            <div
+                style={{
+                    overflow: 'hidden',
+                    maxHeight: open ? '400px' : '0',
+                    opacity: open ? 1 : 0,
+                    transition: 'all 0.5s ease',
+                }}
+                className="nav-mobile-menu"
+            >
+                <div className="glass-nav" style={{ padding: '1.25rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div className="flex-col gap-2">
+                        {links.map(link => {
+                            const active = location.pathname === link.path
+                            return (
+                                <Link
+                                    key={link.name}
+                                    to={link.path}
+                                    className={`font-display ${active ? 'gradient-rainbow' : ''}`}
+                                    style={{
+                                        display: 'block', padding: '0.75rem 1.25rem', borderRadius: '1rem', fontSize: '0.875rem', fontWeight: 600,
+                                        color: active ? 'white' : '#a3a3a3',
+                                    }}
+                                >
+                                    {link.name}
+                                </Link>
+                            )
+                        })}
+                        <Link
+                            to="/contact"
+                            className="gradient-sunset font-display"
+                            style={{ display: 'block', textAlign: 'center', padding: '0.75rem', borderRadius: '1rem', fontSize: '0.875rem', fontWeight: 700, color: '#171717', marginTop: '0.5rem' }}
+                        >
+                            Let's Talk ✨
+                        </Link>
+                    </div>
                 </div>
             </div>
+
+            <style>{`
+        @media (min-width: 768px) {
+          .nav-desktop { display: flex !important; }
+          .nav-mobile-btn { display: none !important; }
+          .nav-mobile-menu { display: none !important; }
+        }
+        @media (min-width: 640px) {
+          .nav-desktop + div .font-display { display: inline !important; }
+        }
+        @media (min-width: 640px) {
+          nav a[aria-label="Home"] span { display: inline !important; }
+        }
+      `}</style>
         </nav>
     )
 }

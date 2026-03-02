@@ -1,31 +1,19 @@
-export default function ColorBlob({ color = 'coral', size = 400, top, left, right, bottom, opacity = 0.15, className = '' }) {
-  const colors = {
-    coral: '#ff6b6b',
-    sky: '#4d96ff',
-    mint: '#6bcb77',
-    lavender: '#a66cff',
-    sunny: '#ffd93d',
-    peach: '#ffb085',
-    rose: '#f472b6',
-    teal: '#2dd4bf',
-  }
+import { useRef } from 'react'
+import gsap from 'gsap'
 
-  const style = {
-    width: size,
-    height: size,
-    background: `radial-gradient(circle, ${colors[color] || colors.coral} 0%, transparent 70%)`,
-    opacity,
-    top,
-    left,
-    right,
-    bottom,
-  }
+export default function MagneticButton({ children, className = '' }) {
+    const ref = useRef(null)
+    const move = (e) => {
+        const b = ref.current
+        if (!b) return
+        const r = b.getBoundingClientRect()
+        gsap.to(b, { x: (e.clientX - r.left - r.width / 2) * 0.25, y: (e.clientY - r.top - r.height / 2) * 0.25, duration: 0.4, ease: 'power2.out' })
+    }
+    const leave = () => gsap.to(ref.current, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1,0.3)' })
 
-  return (
-    <div
-      className={`absolute rounded-full blur-3xl pointer-events-none ${className}`}
-      style={style}
-      aria-hidden="true"
-    />
-  )
+    return (
+        <div ref={ref} onMouseMove={move} onMouseLeave={leave} className={className} style={{ display: 'inline-block' }}>
+            {children}
+        </div>
+    )
 }

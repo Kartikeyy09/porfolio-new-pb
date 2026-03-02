@@ -1,19 +1,19 @@
-export default function MarqueeText({ items, speed = 20 }) {
-    const content = items.join(' • ') + ' • '
+import { useRef } from 'react'
+import gsap from 'gsap'
+
+export default function MagneticButton({ children, className = '' }) {
+    const ref = useRef(null)
+    const move = (e) => {
+        const b = ref.current
+        if (!b) return
+        const r = b.getBoundingClientRect()
+        gsap.to(b, { x: (e.clientX - r.left - r.width / 2) * 0.25, y: (e.clientY - r.top - r.height / 2) * 0.25, duration: 0.4, ease: 'power2.out' })
+    }
+    const leave = () => gsap.to(ref.current, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1,0.3)' })
 
     return (
-        <div className="overflow-hidden whitespace-nowrap py-4" aria-hidden="true">
-            <div
-                className="inline-block animate-marquee"
-                style={{ animationDuration: `${speed}s` }}
-            >
-                <span className="text-6xl sm:text-8xl lg:text-9xl font-display font-bold text-white/[0.03] uppercase tracking-widest">
-                    {content}
-                </span>
-                <span className="text-6xl sm:text-8xl lg:text-9xl font-display font-bold text-white/[0.03] uppercase tracking-widest">
-                    {content}
-                </span>
-            </div>
+        <div ref={ref} onMouseMove={move} onMouseLeave={leave} className={className} style={{ display: 'inline-block' }}>
+            {children}
         </div>
     )
 }

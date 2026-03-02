@@ -91,7 +91,7 @@ export const personalInfo = {
     email: "bhadoriapratishtha@gmail.com",
     phone: "+44-7404964963",
     location: "London, UK",
-    linkedin: "https://www.linkedin.com/in/pratishtha-bhadoria/",
+    linkedin: "https://www.linkedin.com/in/pratishtha-bhadoria-a37054270/",
     university: "University of Hertfordshire",
     degree: "MSc Strategic Marketing with Digital Media Management",
     bio: "I'm a first-year MSc Strategic Marketing student at the University of Hertfordshire with a BBA in Event Management & Media Entertainment. My hands-on experience at MakeMyTrip in sales and digital marketing taught me to create data-driven strategies that connect brands with real people. I live at the intersection of creativity and analytics — using tools like Power BI, Google Analytics, and social media platforms to craft campaigns that don't just look good, but deliver results.",

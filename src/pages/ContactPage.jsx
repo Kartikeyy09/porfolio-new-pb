@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react'
-import {
-    EnvelopeIcon, PhoneIcon, MapPinIcon,
-    PaperAirplaneIcon, CheckCircleIcon, ArrowDownTrayIcon,
-} from '@heroicons/react/24/outline'
+import { PaperAirplaneIcon, CheckCircleIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline'
 import ScrollReveal from '../components/ScrollReveal'
 import TextReveal from '../components/TextReveal'
 import MagneticButton from '../components/MagneticButton'
 import ColorBlob from '../components/ColorBlob'
-import { personalInfo } from '../data/portfolioData'
+import { personalInfo, COLOR_MAP } from '../data/portfolioData'
 
 export default function ContactPage() {
     const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
     const [errors, setErrors] = useState({})
     const [sent, setSent] = useState(false)
-
     useEffect(() => { window.scrollTo(0, 0) }, [])
 
     const validate = () => {
@@ -41,176 +37,143 @@ export default function ContactPage() {
         if (errors[name]) setErrors(p => ({ ...p, [name]: '' }))
     }
 
-    const inputStyle = {
-        background: 'rgba(255,255,255,0.03)',
-        color: 'white',
-    }
-    const inputClass = (field) =>
-        `w-full rounded-2xl px-5 py-3.5 text-sm outline-none transition-all duration-300 ${errors[field] ? '' : ''
-        }`
-    const inputBorder = (field) => errors[field]
-        ? '1px solid var(--color-coral)'
-        : '1px solid rgba(255,255,255,0.1)'
+    const contactItems = [
+        { emoji: '📧', label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
+        { emoji: '📞', label: 'Phone', value: personalInfo.phone, href: `tel:${personalInfo.phone.replace(/-/g, '')}` },
+        { emoji: '📍', label: 'Location', value: personalInfo.location, href: null },
+        { emoji: '🎓', label: 'University Email', value: personalInfo.universityEmail, href: `mailto:${personalInfo.universityEmail}` },
+    ]
 
     return (
-        <div className="pt-20 lg:pt-24">
+        <div style={{ paddingTop: '5rem' }}>
             {/* Header */}
-            <section className="relative py-20 lg:py-28 overflow-hidden" aria-label="Contact Header">
-                <ColorBlob color="coral" size={400} top="-10%" left="10%" opacity={0.08} />
-                <ColorBlob color="sky" size={350} bottom="0" right="10%" opacity={0.06} />
-                <ColorBlob color="sunny" size={250} top="50%" left="50%" opacity={0.04} />
-
-                <div className="relative max-w-7xl mx-auto px-5 sm:px-8 z-10 text-center">
+            <section className="relative overflow-hidden" style={{ paddingTop: '5rem', paddingBottom: '3rem' }} aria-label="Contact Header">
+                <ColorBlob color="coral" size={380} top="-8%" left="8%" opacity={0.06} />
+                <ColorBlob color="sky" size={320} bottom="0" right="8%" opacity={0.05} />
+                <div className="container-site relative z-10 text-center">
                     <ScrollReveal>
-                        <span className="inline-block gradient-sunset text-xs font-bold font-display px-4 py-2 rounded-full uppercase tracking-widest mb-6" style={{ color: '#171717' }}>Get in Touch</span>
+                        <span className="badge-section gradient-sunset mb-6" style={{ color: '#171717' }}>Get in Touch</span>
                     </ScrollReveal>
-                    <TextReveal
-                        text="Let's create something amazing together"
-                        className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-white mb-6 max-w-4xl mx-auto leading-tight"
-                    />
-                    <ScrollReveal delay={0.3}>
-                        <p className="text-lg max-w-xl mx-auto" style={{ color: '#a3a3a3' }}>
-                            I'm always open to new opportunities, collaborations, and conversations about digital marketing ✨
+                    <TextReveal text="Let's create something amazing together" className="font-display mb-6" />
+                    <ScrollReveal delay={0.2}>
+                        <p className="c-gray-400 text-section-subtitle max-w-narrow mx-auto">
+                            I am always open to collaboration and new opportunities. Feel free to connect with me ✨
                         </p>
                     </ScrollReveal>
                 </div>
             </section>
 
             {/* Main */}
-            <section className="relative py-12 lg:py-20" aria-label="Contact Form">
-                <div className="max-w-7xl mx-auto px-5 sm:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
+            <section className="section-space" aria-label="Contact Form">
+                <div className="container-site">
+                    <div className="grid-contact">
                         {/* Left */}
-                        <div className="lg:col-span-2 space-y-5">
-                            {[
-                                { emoji: '📧', label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
-                                { emoji: '📞', label: 'Phone', value: personalInfo.phone, href: `tel:${personalInfo.phone.replace(/-/g, '')}` },
-                                { emoji: '📍', label: 'Location', value: personalInfo.location, href: null },
-                            ].map((c, i) => {
+                        <div className="flex-col gap-5">
+                            {contactItems.map((c, i) => {
                                 const inner = (
-                                    <div className="glass-card rounded-2xl p-5 flex items-center gap-4 card-lift group">
-                                        <span className="text-2xl">{c.emoji}</span>
+                                    <div className="glass-card card-lift p-5" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                        <span style={{ fontSize: '1.5rem' }}>{c.emoji}</span>
                                         <div>
-                                            <span className="text-xs uppercase tracking-widest font-bold font-display" style={{ color: '#525252' }}>{c.label}</span>
-                                            <p className="text-white font-medium text-sm mt-0.5">{c.value}</p>
+                                            <span className="font-display c-gray-600 text-label">{c.label}</span>
+                                            <p className="c-white text-small" style={{ fontWeight: 500, marginTop: '0.125rem', wordBreak: 'break-all' }}>{c.value}</p>
                                         </div>
                                     </div>
                                 )
                                 return (
-                                    <ScrollReveal key={i} direction="left" delay={i * 0.1}>
+                                    <ScrollReveal key={i} direction="left" delay={i * 0.08}>
                                         {c.href ? <a href={c.href}>{inner}</a> : inner}
                                     </ScrollReveal>
                                 )
                             })}
 
-                            <ScrollReveal direction="left" delay={0.3}>
-                                <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="block glass-card rounded-2xl p-5 card-lift group">
-                                    <div className="flex items-center gap-4">
-                                        <span className="text-2xl">💼</span>
+                            <ScrollReveal direction="left" delay={0.35}>
+                                <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer">
+                                    <div className="glass-card card-lift p-5" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                        <span style={{ fontSize: '1.5rem' }}>💼</span>
                                         <div>
-                                            <span className="text-xs uppercase tracking-widest font-bold font-display" style={{ color: '#525252' }}>LinkedIn</span>
-                                            <p className="text-white font-medium text-sm mt-0.5">linkedin.com/in/pratishtha-bhadoria</p>
+                                            <span className="font-display c-gray-600 text-label">LinkedIn</span>
+                                            <p className="c-white text-small" style={{ fontWeight: 500, marginTop: '0.125rem' }}>Connect on LinkedIn</p>
                                         </div>
                                     </div>
                                 </a>
                             </ScrollReveal>
 
-                            <ScrollReveal direction="left" delay={0.4}>
-                                <div className="border-gradient">
-                                    <div className="rounded-3xl p-6 text-center" style={{ background: '#171717' }}>
-                                        <span className="text-4xl block mb-3">📄</span>
-                                        <h3 className="text-white font-display font-bold mb-2">Download My CV</h3>
-                                        <p className="text-sm mb-4" style={{ color: '#737373' }}>Get a detailed overview of my experience and skills.</p>
+                            <ScrollReveal direction="left" delay={0.45}>
+                                <div className="border-gradient-wrap">
+                                    <div className="border-gradient-inner p-6 text-center">
+                                        <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '0.75rem' }}>📄</span>
+                                        <h3 className="font-display c-white mb-2" style={{ fontWeight: 700 }}>Download My CV</h3>
+                                        <p className="c-gray-500 text-small mb-4">Get a detailed overview of my experience and skills.</p>
                                         <MagneticButton>
                                             <button
-                                                className="gradient-sunset px-6 py-3 rounded-2xl text-sm font-bold font-display inline-flex items-center gap-2 transition-all"
-                                                style={{ color: '#171717', boxShadow: '0 8px 30px rgba(255,217,61,0.15)' }}
+                                                className="gradient-sunset font-display"
+                                                style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: '#171717', padding: '0.75rem 1.5rem', borderRadius: '1rem', fontWeight: 700, fontSize: '0.875rem', border: 'none' }}
                                                 onClick={() => alert('Add your CV PDF to the public folder and link it here!')}
                                             >
-                                                <ArrowDownTrayIcon className="w-4 h-4" />
-                                                Download CV
+                                                <ArrowDownTrayIcon style={{ width: '1rem', height: '1rem' }} /> Download CV
                                             </button>
                                         </MagneticButton>
                                     </div>
                                 </div>
                             </ScrollReveal>
 
-                            <ScrollReveal direction="left" delay={0.5}>
-                                <div className="glass-card rounded-2xl p-5 flex items-center gap-3">
-                                    <div className="w-3 h-3 rounded-full dot-mint animate-pulse-dot" />
-                                    <span className="text-sm font-medium" style={{ color: '#d4d4d4' }}>Available for internships, collaborations & freelance</span>
+                            <ScrollReveal direction="left" delay={0.55}>
+                                <div className="glass-card p-5" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                    <div className="dot-pulse-lg dot-mint anim-pulse-dot" />
+                                    <span className="c-gray-300 text-small" style={{ fontWeight: 500 }}>Available for internships, collaborations & graduate roles</span>
                                 </div>
                             </ScrollReveal>
                         </div>
 
-                        {/* Right — Form */}
-                        <div className="lg:col-span-3">
+                        {/* Right */}
+                        <div>
                             <ScrollReveal direction="right">
-                                <div className="border-gradient">
-                                    <div className="rounded-3xl p-7 lg:p-10" style={{ background: '#171717' }}>
-                                        <h3 className="text-white font-display font-bold text-2xl mb-2">Send Me a Message ✉️</h3>
-                                        <p className="text-sm mb-8" style={{ color: '#737373' }}>I'll get back to you within 24–48 hours.</p>
+                                <div className="border-gradient-wrap">
+                                    <div className="border-gradient-inner" style={{ padding: 'clamp(1.75rem, 3vw, 2.5rem)' }}>
+                                        <h3 className="font-display c-white mb-2" style={{ fontWeight: 700, fontSize: '1.5rem' }}>Send Me a Message ✉️</h3>
+                                        <p className="c-gray-500 text-small mb-8">I'll get back to you within 24–48 hours.</p>
 
                                         {sent ? (
-                                            <div className="text-center py-16">
-                                                <CheckCircleIcon className="w-16 h-16 mx-auto mb-4" style={{ color: 'var(--color-mint)' }} />
-                                                <h4 className="text-white font-display font-bold text-xl mb-2">Message Sent! 🎉</h4>
-                                                <p style={{ color: '#a3a3a3' }}>Thank you for reaching out!</p>
+                                            <div className="text-center" style={{ padding: '4rem 0' }}>
+                                                <CheckCircleIcon style={{ width: '4rem', height: '4rem', color: '#6bcb77', margin: '0 auto 1rem' }} />
+                                                <h4 className="font-display c-white mb-2" style={{ fontWeight: 700, fontSize: '1.25rem' }}>Message Sent! 🎉</h4>
+                                                <p className="c-gray-400">Thank you for reaching out!</p>
                                             </div>
                                         ) : (
-                                            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                                            <form onSubmit={handleSubmit} className="flex-col gap-5" noValidate>
                                                 {[
-                                                    { id: 'name', label: 'Full Name', type: 'text', placeholder: 'Your full name' },
-                                                    { id: 'email', label: 'Email Address', type: 'email', placeholder: 'your.email@example.com' },
-                                                    { id: 'subject', label: 'Subject', type: 'text', placeholder: 'What is this regarding?' },
-                                                ].map(field => (
-                                                    <div key={field.id}>
-                                                        <label htmlFor={field.id} className="block text-sm font-bold font-display mb-2" style={{ color: '#d4d4d4' }}>
-                                                            {field.label} <span className="c-coral">*</span>
-                                                        </label>
+                                                    { id: 'name', label: 'Full Name', type: 'text', ph: 'Your full name' },
+                                                    { id: 'email', label: 'Email Address', type: 'email', ph: 'your.email@example.com' },
+                                                    { id: 'subject', label: 'Subject', type: 'text', ph: 'What is this regarding?' },
+                                                ].map(f => (
+                                                    <div key={f.id}>
+                                                        <label htmlFor={f.id} className="field-label">{f.label} <span className="c-coral">*</span></label>
                                                         <input
-                                                            type={field.type}
-                                                            id={field.id}
-                                                            name={field.id}
-                                                            value={form[field.id]}
-                                                            onChange={handleChange}
-                                                            placeholder={field.placeholder}
-                                                            className={inputClass(field.id)}
-                                                            style={{ ...inputStyle, border: inputBorder(field.id) }}
-                                                            aria-required="true"
-                                                            aria-invalid={errors[field.id] ? 'true' : 'false'}
+                                                            type={f.type} id={f.id} name={f.id} value={form[f.id]}
+                                                            onChange={handleChange} placeholder={f.ph}
+                                                            className={`input-field ${errors[f.id] ? 'has-error' : ''}`}
+                                                            aria-required="true" aria-invalid={errors[f.id] ? 'true' : 'false'}
                                                         />
-                                                        {errors[field.id] && <p className="c-coral text-xs mt-1.5 font-medium" role="alert">{errors[field.id]}</p>}
+                                                        {errors[f.id] && <p className="field-error" role="alert">{errors[f.id]}</p>}
                                                     </div>
                                                 ))}
-
                                                 <div>
-                                                    <label htmlFor="message" className="block text-sm font-bold font-display mb-2" style={{ color: '#d4d4d4' }}>
-                                                        Message <span className="c-coral">*</span>
-                                                    </label>
+                                                    <label htmlFor="message" className="field-label">Message <span className="c-coral">*</span></label>
                                                     <textarea
-                                                        id="message"
-                                                        name="message"
-                                                        rows={5}
-                                                        value={form.message}
-                                                        onChange={handleChange}
-                                                        placeholder="Tell me about your project or opportunity..."
-                                                        className={`${inputClass('message')} resize-none`}
-                                                        style={{ ...inputStyle, border: inputBorder('message') }}
-                                                        aria-required="true"
-                                                        aria-invalid={errors.message ? 'true' : 'false'}
+                                                        id="message" name="message" rows={5} value={form.message}
+                                                        onChange={handleChange} placeholder="Tell me about your project or opportunity..."
+                                                        className={`input-field ${errors.message ? 'has-error' : ''}`}
+                                                        style={{ resize: 'none' }}
+                                                        aria-required="true" aria-invalid={errors.message ? 'true' : 'false'}
                                                     />
-                                                    {errors.message && <p className="c-coral text-xs mt-1.5 font-medium" role="alert">{errors.message}</p>}
+                                                    {errors.message && <p className="field-error" role="alert">{errors.message}</p>}
                                                 </div>
-
-                                                <MagneticButton className="w-full block">
-                                                    <button type="submit" className="w-full gradient-sunset py-4 rounded-2xl font-bold font-display text-base flex items-center justify-center gap-2 transition-all" style={{ color: '#171717', boxShadow: '0 10px 40px rgba(255,217,61,0.15)' }}>
-                                                        <PaperAirplaneIcon className="w-5 h-5" />
-                                                        Send Message 🚀
+                                                <MagneticButton style={{ display: 'block', width: '100%' }}>
+                                                    <button type="submit" className="gradient-sunset font-display w-full" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', color: '#171717', padding: '1rem', borderRadius: '1rem', fontWeight: 700, fontSize: '1rem', border: 'none' }}>
+                                                        <PaperAirplaneIcon style={{ width: '1.25rem', height: '1.25rem' }} /> Send Message 🚀
                                                     </button>
                                                 </MagneticButton>
-
-                                                <p className="text-xs text-center" style={{ color: '#404040' }}>Your info is safe. Only used to respond to your message.</p>
+                                                <p className="c-gray-700 text-center" style={{ fontSize: '0.75rem' }}>Your info is safe. Only used to respond to your message.</p>
                                             </form>
                                         )}
                                     </div>
@@ -222,24 +185,23 @@ export default function ContactPage() {
             </section>
 
             {/* Location */}
-            <section className="relative py-20 lg:py-24">
-                <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center">
+            <section style={{ paddingBottom: '5rem' }}>
+                <div className="container-site max-w-medium mx-auto text-center">
                     <ScrollReveal>
-                        <div className="glass-card rounded-3xl p-8 lg:p-12">
-                            <h3 className="text-2xl font-display font-bold text-white mb-4">
+                        <div className="glass-card" style={{ padding: 'clamp(2rem, 4vw, 3rem)' }}>
+                            <h3 className="font-display c-white mb-4" style={{ fontSize: '1.5rem', fontWeight: 700 }}>
                                 Based in <span className="text-gradient-sunset">London, UK</span> 🇬🇧
                             </h3>
-                            <p className="mb-6" style={{ color: '#a3a3a3' }}>Studying at the University of Hertfordshire. Open to opportunities across the UK and beyond.</p>
-                            <div className="flex flex-wrap justify-center gap-3">
+                            <p className="c-gray-400 mb-6">Studying at the University of Hertfordshire. Open to opportunities across the UK and beyond.</p>
+                            <div className="flex-wrap-center gap-3">
                                 {[
-                                    { t: '🇬🇧 UK Based', cm: COLOR_MAP.coral },
-                                    { t: '🌍 Open to Remote', cm: COLOR_MAP.sky },
-                                    { t: '✈️ Willing to Travel', cm: COLOR_MAP.mint },
-                                ].map(({ t, cm }, i) => (
-                                    <span key={i} className={`${cm.bg} ${cm.text} px-5 py-2.5 rounded-2xl text-sm font-bold font-display`} style={{ border: '1px solid rgba(255,255,255,0.06)' }}>
-                                        {t}
-                                    </span>
-                                ))}
+                                    { t: '🇬🇧 UK Based', c: 'coral' },
+                                    { t: '🌍 Open to Remote', c: 'sky' },
+                                    { t: '✈️ Willing to Travel', c: 'mint' },
+                                ].map(({ t, c }, i) => {
+                                    const cm = COLOR_MAP[c]
+                                    return <span key={i} className={`${cm.bg} ${cm.text} font-display tag`} style={{ padding: '0.625rem 1.25rem', fontWeight: 700 }}>{t}</span>
+                                })}
                             </div>
                         </div>
                     </ScrollReveal>
