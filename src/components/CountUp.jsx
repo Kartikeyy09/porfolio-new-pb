@@ -6,18 +6,39 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function CountUp({ target, suffix = '', duration = 2 }) {
     const ref = useRef(null)
-    const [val, setVal] = useState(0)
-    const num = parseInt(target)
+    const [displayVal, setDisplayVal] = useState(0)
+    const triggered = useRef(false)
+    const num = parseInt(target, 10)
 
     useEffect(() => {
         const el = ref.current
-        if (!el || isNaN(num)) return
-        const obj = { v: 0 }
-        ScrollTrigger.create({
-            trigger: el, start: 'top 90%', once: true,
-            onEnter: () => gsap.to(obj, { v: num, duration, ease: 'power2.out', onUpdate: () => setVal(Math.floor(obj.v)) }),
+        if (!el || isNaN(num) || triggered.current) return
+
+        const trigger = ScrollTrigger.create({
+            trigger: el,
+            start: 'top 92%',
+            once: true,
+            onEnter: () => {
+                if (triggered.current) return
+                triggered.current = true
+                const obj = { val: 0 }
+                gsap.to(obj, {
+                    val: num,
+                    duration,
+                    ease: 'power2.out',
+                    onUpdate: () => setDisplayVal(Math.floor(obj.val)),
+                })
+            },
         })
+
+        return () => {
+            trigger.kill()
+        }
     }, [num, duration])
 
-    return <span ref={ref}>{isNaN(num) ? target : `${val}${suffix}`}</span>
+    if (isNaN(num)) {
+        return <span ref={ref}>{target}</span>
+    }
+
+    return <span ref={ref}>{displayVal}{suffix}</span>
 }

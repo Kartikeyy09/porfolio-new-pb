@@ -135,8 +135,8 @@ export default function HomePage() {
 
                     <div className="grid-about">
                         {/* Left column */}
-                        <div className="flex-col gap-6">
-                            <ScrollReveal direction="left">
+                        <div className="flex-col gap-6 ">
+                            <ScrollReveal direction="left ">
                                 <div className="border-gradient-wrap">
                                     <div className="border-gradient-inner p-8 text-center">
                                         <div className="anim-float-slow mx-auto mb-5" style={{ width: '9rem', height: '9rem', borderRadius: '1.5rem', padding: '3px', background: 'linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #a66cff)', overflow: 'hidden' }}>
@@ -178,7 +178,7 @@ export default function HomePage() {
                             <ScrollReveal direction="left" delay={0.15}>
                                 <div className="glass-card p-6">
                                     <h4 className="font-display c-white text-label mb-3">Career Ambition 🎯</h4>
-                                    <p className="c-gray-400" style={{ fontSize: '0.8rem', lineHeight: 1.8 }}>{personalInfo.ambition}</p>
+                                    <p className="c-gray-400" style={{ fontSize: '0.8rem', lineHeight: 1.8 }}>{personalInfo.careerambition}</p>
                                 </div>
                             </ScrollReveal>
 

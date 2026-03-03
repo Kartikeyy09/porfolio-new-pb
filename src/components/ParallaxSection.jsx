@@ -5,22 +5,34 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function ParallaxSection({ children, speed = 0.3, className = '' }) {
-    const ref = useRef(null)
-    const inner = useRef(null)
+    const containerRef = useRef(null)
+    const innerRef = useRef(null)
 
     useEffect(() => {
-        if (!ref.current || !inner.current) return
-        gsap.to(inner.current, {
+        const container = containerRef.current
+        const inner = innerRef.current
+        if (!container || !inner) return
+
+        const tween = gsap.to(inner, {
             yPercent: -speed * 100,
             ease: 'none',
-            scrollTrigger: { trigger: ref.current, start: 'top bottom', end: 'bottom top', scrub: 1 },
+            scrollTrigger: {
+                trigger: container,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1,
+            },
         })
-        return () => ScrollTrigger.getAll().forEach(t => t.kill())
+
+        return () => {
+            tween.scrollTrigger?.kill()
+            tween.kill()
+        }
     }, [speed])
 
     return (
-        <div ref={ref} className={`relative overflow-hidden ${className}`}>
-            <div ref={inner}>{children}</div>
+        <div ref={containerRef} className={className} style={{ position: 'relative', overflow: 'hidden' }}>
+            <div ref={innerRef}>{children}</div>
         </div>
     )
 }

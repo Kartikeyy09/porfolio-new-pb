@@ -57,7 +57,7 @@ export default function Footer() {
                 </div>
 
                 <div style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
-                    <p style={{ color: '#404040', fontSize: '0.75rem' }}>© {new Date().getFullYear()} Pratishtha Bhadoria. Made with 💛</p>
+                    <p style={{ color: '#404040', fontSize: '0.75rem' }}>© {new Date().getFullYear()} Pratishtha Bhadoria</p>
                     <p style={{ color: '#404040', fontSize: '0.75rem' }}>University of Hertfordshire — Digital Marketing Portfolio</p>
                 </div>
             </div>

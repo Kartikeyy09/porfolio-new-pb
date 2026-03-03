@@ -97,6 +97,7 @@ export const personalInfo = {
     bio: "I'm a first-year MSc Strategic Marketing student at the University of Hertfordshire with a BBA in Event Management & Media Entertainment. My hands-on experience at MakeMyTrip in sales and digital marketing taught me to create data-driven strategies that connect brands with real people. I live at the intersection of creativity and analytics — using tools like Power BI, Google Analytics, and social media platforms to craft campaigns that don't just look good, but deliver results.",
     shortBio: "I help brands tell their stories through data-driven digital strategies and creative content that truly resonates.",
     mission: "Bridging creativity and analytics to craft digital experiences that drive real business results.",
+    careerambition: "My career ambition is to work in strategic and digital marketing roles such as Strategic Marketing Manager, Digital Marketing Manager, or Brand Manager within leading global companies like Google, Amazon, or Apple. I aim to develop long-term business and marketing strategies, manage digital campaigns across platforms, and use data analytics to improve performance and customer engagement. I am particularly interested in aligning business objectives with innovative digital strategies and supporting organisations in adapting to the evolving digital landscape."
 }
 
 export const stats = [
@@ -149,7 +150,7 @@ export const education = [
     {
         degree: "MSc Strategic Marketing with Digital Media Management",
         institution: "University of Hertfordshire",
-        location: "Hertfordshire, UK",
+        location: "Hatfield, UK",
         period: "Sep 2025 – Present",
         status: "Current",
         color: "coral",
@@ -192,92 +193,97 @@ export const experience = [
 export const projects = [
     {
         id: 1,
-        title: "Instagram Brand Awareness Campaign",
-        subtitle: "EcoThreads — Sustainable Fashion",
-        type: "Social Media Campaign",
+        title: "Digital Experience & UX Evaluation",
+        subtitle: "E-commerce Platform Analysis",
+        type: "Academic Analysis",
         color: "coral",
-        emoji: "📱",
-        objective: "Design a 2-week Instagram campaign for fictional sustainable fashion brand 'EcoThreads' to boost brand awareness among 18–30 year-old eco-conscious UK consumers.",
-        targetAudience: "Eco-conscious millennials and Gen Z (18–30) in the UK who value sustainability in fashion",
-        strategy: "Applied the 80/20 content rule — 80% value-driven (tips, behind-the-scenes, user stories) and 20% promotional. Built a cohesive visual identity with earthy tones. Implemented a multi-tier hashtag strategy with branded, community, and trending tags. Planned Stories, Reels, and carousels for maximum engagement.",
-        tools: ["Canva", "Instagram", "Meta Business Suite", "Later", "Google Sheets"],
+        emoji: "🖥️",
+        image: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&q=80',
+        objective: "Evaluate website structure, usability, accessibility, and SEO performance of an e-commerce platform to identify areas for UX improvement and enhanced search visibility.",
+        targetAudience: "Online shoppers aged 18–35 who regularly purchase through e-commerce platforms",
+        strategy: "Used UX evaluation framework including heuristic analysis (Nielsen's 10 heuristics), user journey mapping from landing page to checkout, and SEO analysis tools to audit on-page elements. Conducted wireframe analysis and benchmarked against industry best practices.",
+        tools: ["Google Analytics (basic)", "SEO Analysis Tools", "Canva", "PowerPoint", "WAVE Accessibility Tool"],
         features: [
-            "6 Instagram posts — carousels, Reels concepts & Stories",
-            "Full content calendar with optimal posting schedule",
-            "Branded hashtag strategy with 15 researched hashtags",
-            "Engagement plan: polls, Q&As, UGC prompts",
-            "KPI framework: reach, engagement rate, follower growth, saves"
+            "Comprehensive wireframe analysis of key pages",
+            "UX improvement suggestions based on Nielsen's heuristics",
+            "SEO evaluation covering meta tags, headings, alt text, and page speed",
+            "User journey map from landing to conversion",
+            "Accessibility audit with WCAG compliance check",
+            "Professional presentation with visual recommendations"
         ],
-        results: "Projected 15% engagement rate increase based on industry benchmarks. Templates praised for visual consistency and messaging clarity.",
-        reflection: "This project deepened my understanding of how consistent brand storytelling drives engagement. Planning content pillars in advance creates cohesion. Next time I'd A/B test captions and post timing.",
-        tags: ["Social Media", "Content Creation", "Brand Strategy", "Instagram"]
+        results: "Identified 12 areas for UX improvement and 8 SEO enhancement opportunities. Recommendations included restructured navigation, improved CTA placement, and optimised image alt text for better crawlability.",
+        reflection: "This project taught me how deeply digital design affects user engagement and search visibility. I learned that small UX changes — like button placement or page load speed — can significantly impact conversion rates.",
+        tags: ["UX Design", "SEO", "Web Analysis", "Accessibility"]
     },
     {
         id: 2,
-        title: "SEO Blog: Digital Marketing Trends 2025",
-        subtitle: "Search-Optimised Content Writing",
-        type: "SEO Blog Post",
+        title: "Instagram Campaign Strategy for Travel Brand",
+        subtitle: "Social Media Marketing Campaign",
+        type: "Digital Marketing Strategy",
         color: "mint",
-        emoji: "🔍",
-        objective: "Write and optimise an SEO-friendly blog post for small business owners wanting to improve their digital presence, showcasing on-page SEO best practices.",
-        targetAudience: "UK small business owners and entrepreneurs seeking practical digital marketing advice",
-        strategy: "Keyword research via Ubersuggest and Google Keyword Planner. Primary keyword: 'digital marketing trends 2025'. Applied on-page SEO: proper H1–H3 hierarchy, meta title (<60 chars), meta description (<160 chars), internal/external linking, image optimisation with alt text, readability optimisation.",
-        tools: ["WordPress", "Ubersuggest", "Google Keyword Planner", "Yoast SEO", "Grammarly", "Canva"],
+        emoji: "📱",
+        image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80',
+        objective: "Increase engagement and brand awareness for a travel brand targeting young travellers aged 18–30 through a strategic Instagram campaign.",
+        targetAudience: "Young travellers aged 18–30 who are active on Instagram and interested in adventure and cultural travel experiences",
+        strategy: "Developed a comprehensive content calendar with a mix of Reels, carousels, and Stories. Implemented influencer collaboration strategy with micro-influencers in the travel niche. Created a branded hashtag strategy combining trending and niche-specific tags. Planned weekly engagement activities including polls, Q&As, and user-generated content prompts.",
+        tools: ["Canva", "Instagram Insights", "Meta Business Suite", "Later (Scheduling)", "Google Sheets"],
         features: [
-            "700-word blog with proper H1, H2, H3 heading structure",
-            "Meta title: 'Top 5 Digital Marketing Trends for Small Businesses in 2025'",
-            "Meta description crafted under 160 characters",
-            "3 internal + 4 external authoritative links",
-            "3 compressed images with descriptive alt text",
-            "Keyword density maintained at 1.5–2%"
+            "2-week content calendar with daily posting schedule",
+            "Influencer collaboration framework with outreach templates",
+            "Branded hashtag strategy with 20 researched hashtags",
+            "Engagement strategy: polls, Q&As, UGC campaigns",
+            "Visual brand guidelines for consistent aesthetic",
+            "KPI tracking framework: reach, engagement rate, saves, shares"
         ],
-        results: "Scored 92/100 on Yoast readability. Keyword optimisation rated 'Good'. Page load under 2 seconds.",
-        reflection: "SEO writing means balancing keywords with natural readability. Long-tail keywords often convert better than generic terms. Heading hierarchy directly impacts crawlability.",
-        tags: ["SEO", "Content Writing", "Blog", "Keyword Research"]
+        results: "Projected 20% improvement in engagement rate based on industry benchmarks. Content templates praised for visual consistency and audience-appropriate messaging.",
+        reflection: "The importance of content consistency and audience targeting became clear through this project. I learned that authentic storytelling and community engagement drive far more meaningful results than promotional content alone.",
+        tags: ["Social Media", "Content Creation", "Brand Strategy", "Instagram"]
     },
     {
         id: 3,
-        title: "Email Welcome Sequence — EcoThreads",
-        subtitle: "3-Email Nurture Campaign",
-        type: "Email Marketing",
-        color: "lavender",
-        emoji: "📧",
-        objective: "Design a 3-email welcome sequence for new EcoThreads subscribers to build brand affinity, educate on sustainability, and drive first purchase.",
-        targetAudience: "New subscribers aged 20–35 who signed up via Instagram campaign or website — sustainability-conscious shoppers",
-        strategy: "Applied the AIDA model across 3 emails. Email 1: Welcome + brand story (Attention/Interest). Email 2: Sustainability tips + bestsellers (Desire). Email 3: Exclusive 15% discount + urgency (Action). Mobile-first responsive templates with personalisation tokens and clear CTAs.",
-        tools: ["Mailchimp", "Canva", "Google Docs"],
+        title: "Consumer Behaviour in Online Travel Booking",
+        subtitle: "Primary Research Study",
+        type: "Market Research",
+        color: "sky",
+        emoji: "🔬",
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
+        objective: "Understand the key factors influencing travel booking decisions among students and young professionals to inform data-driven marketing strategies.",
+        targetAudience: "Students and young professionals aged 20–30 who book travel online",
+        strategy: "Designed and distributed a structured survey via Google Forms to collect primary data from 50+ respondents. Analysed responses using Excel to identify patterns in booking behaviour, platform preferences, and decision-making factors. Applied cross-tabulation to segment findings by age group and frequency of travel.",
+        tools: ["Google Forms", "MS Excel", "Google Sheets", "PowerPoint", "Canva"],
         features: [
-            "3 fully designed mobile-responsive email templates",
-            "A/B test subject lines for Email 1",
-            "Personalisation: first name tokens & dynamic content",
-            "Action-oriented CTA buttons",
-            "GDPR-compliant unsubscribe & preference links",
-            "Optimised preview text for mobile clients"
+            "Structured survey with 15 questions covering booking behaviour",
+            "50+ responses collected and analysed",
+            "Cross-tabulation analysis by demographics",
+            "Visual data presentation with charts and infographics",
+            "Key findings report with actionable marketing recommendations",
+            "Competitor perception mapping"
         ],
-        results: "Projected 45–50% open rates and 8–12% CTR based on Mailchimp 2024 benchmarks. Sequence praised for logical flow and persuasive copy.",
-        reflection: "Email marketing is more nuanced than expected. Subject lines, timing, and mobile rendering all matter. Gained deeper appreciation for UK GDPR compliance.",
-        tags: ["Email Marketing", "Copywriting", "GDPR", "Customer Journey"]
+        results: "Revealed that price and online reviews were the top two decision factors (selected by 78% and 65% of respondents respectively). Mobile booking accounted for 72% of transactions. Recommendations directly informed positioning strategy.",
+        reflection: "This project reinforced that data-driven marketing decisions are significantly more effective than assumption-based strategies. Primary research, even at a small scale, provides invaluable customer insights.",
+        tags: ["Market Research", "Consumer Behaviour", "Data Analysis", "Survey Design"]
     },
     {
         id: 4,
         title: "Travel Package Market Scan",
         subtitle: "Competitive Intelligence for MakeMyTrip",
-        type: "Market Research",
-        color: "sky",
+        type: "Competitive Analysis",
+        color: "lavender",
         emoji: "🗺️",
-        objective: "Conduct competitive analysis of holiday packages in Bhopal to identify pricing gaps and improve MakeMyTrip franchise package positioning.",
+        image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80',
+        objective: "Conduct competitive analysis of holiday packages in Bhopal to identify pricing gaps and improve MakeMyTrip franchise package positioning and customer communication.",
         targetAudience: "MakeMyTrip franchise management and sales team in Bhopal",
-        strategy: "Collected data from 5 competitor agencies on pricing, inclusions, seasonal offers, and reviews across popular destinations (Goa, Rajasthan, Kerala, Thailand, Dubai). Applied SWOT analysis and created comparison matrices. Delivered actionable recommendations.",
+        strategy: "Collected data from 5 competitor travel agencies on pricing, inclusions, seasonal offers, and customer reviews across popular destinations (Goa, Rajasthan, Kerala, Thailand, Dubai). Applied SWOT analysis framework and created comparison matrices. Delivered actionable recommendations for WhatsApp catalogues and social media posts.",
         tools: ["MS Excel", "Google Sheets", "PowerPoint", "Google Maps", "WhatsApp Business"],
         features: [
             "Pricing matrix: 5 agencies × 8 destination packages",
             "SWOT analysis of franchise positioning",
-            "Seasonal demand mapping (peak vs off-peak)",
+            "Seasonal demand mapping (peak vs off-peak trends)",
             "Customer sentiment analysis from Google Reviews",
             "Actionable recommendations with visual summaries"
         ],
         results: "Directly influenced 3 new WhatsApp catalogue templates and 2 festive campaigns. Improved enquiry quality after implementing positioning changes.",
-        reflection: "Real-world analysis requires both quantitative data and qualitative insights. Primary research directly feeds marketing execution.",
+        reflection: "Real-world competitive analysis requires both quantitative data and qualitative insights. Primary research directly feeds marketing execution and creates measurable impact.",
         tags: ["Market Research", "Competitive Analysis", "Strategy", "Data Analysis"]
     },
     {
@@ -287,6 +293,7 @@ export const projects = [
         type: "Business Intelligence",
         color: "sunny",
         emoji: "📈",
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
         objective: "Build an interactive Power BI dashboard from booking data to track sales enquiries, conversions, revenue, and campaign performance for MakeMyTrip franchise.",
         targetAudience: "Franchise owner, sales manager, and marketing team",
         strategy: "Cleaned and structured raw Excel data. Built relational data model in Power BI. Created 4 dashboard pages: Overview, Sales Performance, Campaign Analytics, Customer Insights. Used DAX measures for KPIs. Added interactive slicers for dates, destinations, and channels.",
@@ -299,9 +306,33 @@ export const projects = [
             "Date, destination, channel & package type slicers",
             "Colour-coded conditional formatting"
         ],
-        results: "Revealed Instagram leads had 22% higher conversion than walk-ins. Showed Kerala packages had best margins despite Goa having highest volume.",
-        reflection: "Visual analytics makes data accessible to non-technical stakeholders. Dashboard design and layout are as important as the underlying data.",
+        results: "Revealed Instagram leads had 22% higher conversion than walk-ins. Showed Kerala packages had best margins despite Goa having highest volume — informing future promotional focus.",
+        reflection: "Visual analytics makes data accessible to non-technical stakeholders. Dashboard design and layout are as important as the underlying data — clarity drives action.",
         tags: ["Power BI", "Data Analytics", "Dashboard", "Business Intelligence"]
+    },
+    {
+        id: 6,
+        title: "Event Budgeting & ROI Model",
+        subtitle: "Financial Planning in Excel",
+        type: "Financial Analysis",
+        color: "peach",
+        emoji: "💰",
+        image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80',
+        objective: "Design a comprehensive cost-revenue model for a college event, performing what-if analysis for ticket pricing, sponsorships, and break-even scenarios.",
+        targetAudience: "College event organising committee and student council",
+        strategy: "Built a multi-sheet Excel workbook with linked formulas for revenue projections, cost tracking, and ROI calculation. Created scenario analysis using data tables and goal seek for break-even pricing. Incorporated sensitivity analysis for key variables like attendance rate and sponsorship levels.",
+        tools: ["MS Excel", "Google Sheets", "PowerPoint"],
+        features: [
+            "Multi-sheet financial model with linked formulas",
+            "What-if analysis for ticket pricing scenarios",
+            "Break-even calculator with visual charts",
+            "Sponsorship tier modelling",
+            "ROI projection under optimistic, realistic, and pessimistic scenarios",
+            "Professional presentation of findings"
+        ],
+        results: "Model identified optimal ticket price of ₹250 for maximum ROI. Showed that securing 2 gold sponsors would reduce break-even attendance by 40%. Used by the committee for actual event planning.",
+        reflection: "Financial modelling brings clarity to business decisions. This project showed me how data transforms subjective discussions into objective, evidence-based planning.",
+        tags: ["Financial Modelling", "Excel", "ROI Analysis", "Event Planning"]
     }
 ]
 

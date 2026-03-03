@@ -5,30 +5,56 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function ScrollReveal({
-    children, direction = 'up', delay = 0, duration = 0.9,
-    distance = 60, className = '', scale = false,
+    children,
+    direction = 'up',
+    delay = 0,
+    duration = 0.9,
+    distance = 60,
+    className = '',
+    scale = false,
 }) {
     const ref = useRef(null)
+    const animated = useRef(false)
 
     useEffect(() => {
         const el = ref.current
-        if (!el) return
+        if (!el || animated.current) return
 
-        const from = { opacity: 0 }
-        if (direction === 'up') from.y = distance
-        if (direction === 'down') from.y = -distance
-        if (direction === 'left') from.x = distance
-        if (direction === 'right') from.x = -distance
-        if (scale) from.scale = 0.9
+        const fromVars = { opacity: 0 }
+        if (direction === 'up') fromVars.y = distance
+        else if (direction === 'down') fromVars.y = -distance
+        else if (direction === 'left') fromVars.x = distance
+        else if (direction === 'right') fromVars.x = -distance
+        if (scale) fromVars.scale = 0.9
 
-        gsap.fromTo(el, from, {
-            opacity: 1, x: 0, y: 0, scale: 1, duration, delay,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+        gsap.set(el, fromVars)
+
+        const trigger = ScrollTrigger.create({
+            trigger: el,
+            start: 'top 90%',
+            once: true,
+            onEnter: () => {
+                animated.current = true
+                gsap.to(el, {
+                    opacity: 1,
+                    x: 0,
+                    y: 0,
+                    scale: 1,
+                    duration,
+                    delay,
+                    ease: 'power3.out',
+                })
+            },
         })
 
-        return () => ScrollTrigger.getAll().forEach(t => t.kill())
+        return () => {
+            trigger.kill()
+        }
     }, [direction, delay, duration, distance, scale])
 
-    return <div ref={ref} className={className} style={{ opacity: 0 }}>{children}</div>
+    return (
+        <div ref={ref} className={className} style={{ opacity: 0 }}>
+            {children}
+        </div>
+    )
 }

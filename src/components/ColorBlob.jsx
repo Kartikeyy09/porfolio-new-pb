@@ -1,19 +1,45 @@
-import { useRef } from 'react'
-import gsap from 'gsap'
+const COLORS = {
+    coral: '#ff6b6b',
+    sky: '#4d96ff',
+    mint: '#6bcb77',
+    lavender: '#a66cff',
+    sunny: '#ffd93d',
+    peach: '#ffb085',
+    rose: '#f472b6',
+    teal: '#2dd4bf',
+}
 
-export default function MagneticButton({ children, className = '' }) {
-    const ref = useRef(null)
-    const move = (e) => {
-        const b = ref.current
-        if (!b) return
-        const r = b.getBoundingClientRect()
-        gsap.to(b, { x: (e.clientX - r.left - r.width / 2) * 0.25, y: (e.clientY - r.top - r.height / 2) * 0.25, duration: 0.4, ease: 'power2.out' })
-    }
-    const leave = () => gsap.to(ref.current, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1,0.3)' })
+export default function ColorBlob({
+    color = 'coral',
+    size = 400,
+    top,
+    left,
+    right,
+    bottom,
+    opacity = 0.15,
+    className = '',
+}) {
+    const colorValue = COLORS[color] || COLORS.coral
 
     return (
-        <div ref={ref} onMouseMove={move} onMouseLeave={leave} className={className} style={{ display: 'inline-block' }}>
-            {children}
-        </div>
+        <div
+            className={className}
+            aria-hidden="true"
+            style={{
+                position: 'absolute',
+                width: `${size}px`,
+                height: `${size}px`,
+                borderRadius: '50%',
+                background: `radial-gradient(circle, ${colorValue} 0%, transparent 70%)`,
+                opacity,
+                top: top || undefined,
+                left: left || undefined,
+                right: right || undefined,
+                bottom: bottom || undefined,
+                pointerEvents: 'none',
+                filter: 'blur(40px)',
+                willChange: 'transform',
+            }}
+        />
     )
 }
