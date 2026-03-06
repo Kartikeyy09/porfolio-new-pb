@@ -321,7 +321,7 @@ export default function HomePage() {
             </ParallaxSection>
 
             {/* ======== FEATURED PROJECTS ======== */}
-            <section className="section-space relative overflow-hidden" aria-label="Featured Projects">
+            {/* <section className="section-space relative overflow-hidden" aria-label="Featured Projects">
                 <ColorBlob color="coral" size={320} top="4%" right="0" opacity={0.04} />
                 <div className="container-site relative z-10">
                     <ScrollReveal>
@@ -371,7 +371,7 @@ export default function HomePage() {
                         </div>
                     </ScrollReveal>
                 </div>
-            </section>
+            </section> */}
 
             {/* ======== CERTIFICATIONS ======== */}
             <section className="section-space relative overflow-hidden" aria-label="Certifications">

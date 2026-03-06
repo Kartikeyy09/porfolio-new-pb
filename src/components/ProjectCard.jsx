@@ -2,215 +2,270 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
-    ArrowTopRightOnSquareIcon,
-    TagIcon,
     ChevronDownIcon,
     ChevronUpIcon,
+    BuildingOfficeIcon,
 } from '@heroicons/react/24/outline'
-import "../App.css"
+import { COLOR_MAP } from '../data/portfolioData'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const tagColors = {
-    'Social Media': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-    'Content Creation': 'bg-purple-500/10 text-purple-400 border-purple-500/20',
-    'Brand Strategy': 'bg-pink-500/10 text-pink-400 border-pink-500/20',
-    Instagram: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
-    SEO: 'bg-green-500/10 text-green-400 border-green-500/20',
-    'Content Writing': 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-    Blog: 'bg-teal-500/10 text-teal-400 border-teal-500/20',
-    'Keyword Research': 'bg-lime-500/10 text-lime-400 border-lime-500/20',
-    'Email Marketing': 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-    Copywriting: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
-    GDPR: 'bg-red-500/10 text-red-400 border-red-500/20',
-    'Customer Journey': 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
-    'Market Research': 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-    'Competitive Analysis': 'bg-sky-500/10 text-sky-400 border-sky-500/20',
-    Strategy: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
-    'Data Analysis': 'bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/20',
-    'Power BI': 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
-    'Data Analytics': 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-    Dashboard: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-    'Business Intelligence': 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
-}
 
 const ProjectCard = ({ project, index }) => {
     const cardRef = useRef(null)
     const [expanded, setExpanded] = useState(false)
+    const cm = COLOR_MAP[project.color] || COLOR_MAP.coral
 
     useEffect(() => {
         const el = cardRef.current
         if (!el) return
 
-        gsap.fromTo(
-            el,
-            { opacity: 0, y: 60, scale: 0.95 },
-            {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 0.8,
-                delay: index * 0.15,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none',
-                },
-            }
-        )
+        gsap.set(el, { opacity: 0, y: 50, scale: 0.95 })
+
+        const trigger = ScrollTrigger.create({
+            trigger: el,
+            start: 'top 88%',
+            once: true,
+            onEnter: () => {
+                gsap.to(el, {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.8,
+                    delay: index * 0.12,
+                    ease: 'power3.out',
+                })
+            },
+        })
+
+        return () => trigger.kill()
     }, [index])
 
     return (
         <article
             ref={cardRef}
-            className="glass-light rounded-2xl overflow-hidden card-hover group"
+            className="glass-card card-lift group overflow-hidden"
+            style={{ opacity: 0 }}
         >
-            {/* Image Placeholder */}
-            <div className="relative h-48 sm:h-56 overflow-hidden bg-gradient-to-br from-primary-900/50 to-accent-900/50">
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                        <div className="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-500">
-                            <span className="text-2xl font-bold text-white font-heading">
-                                {project.id}
-                            </span>
-                        </div>
-                        <span className="text-dark-300 text-sm font-medium">
-                            {project.type}
-                        </span>
-                    </div>
-                </div>
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-60" />
+            {/* Image */}
+            <div className="project-img-wrap">
+                <img
+                    src={project.image}
+                    alt={`${project.title} — ${project.type}`}
+                    loading="lazy"
+                    onError={(e) => {
+                        e.target.style.display = 'none'
+                        e.target.parentElement.style.background =
+                            'linear-gradient(135deg, rgba(255,107,107,0.12), rgba(77,150,255,0.12))'
+                    }}
+                />
+                <div className="project-img-overlay" />
 
                 {/* Type badge */}
-                <div className="absolute top-4 left-4">
-                    <span className="inline-flex items-center gap-1.5 bg-dark-900/80 backdrop-blur-sm text-primary-300 text-xs font-medium px-3 py-1.5 rounded-lg border border-primary-500/20">
-                        <TagIcon className="w-3.5 h-3.5" aria-hidden="true" />
+                <div className="project-img-badge">
+                    <span
+                        className="tag-tool"
+                        style={{
+                            background: 'rgba(0,0,0,0.6)',
+                            backdropFilter: 'blur(8px)',
+                            color: 'white',
+                        }}
+                    >
                         {project.type}
                     </span>
+                </div>
+
+                {/* Emoji */}
+                <span className="project-img-emoji">{project.emoji}</span>
+
+                {/* Title on image */}
+                <div className="project-img-info">
+                    <h3
+                        className="font-display c-white"
+                        style={{ fontWeight: 700, fontSize: '1.25rem', lineHeight: 1.3 }}
+                    >
+                        {project.title}
+                    </h3>
+                    <p
+                        style={{
+                            color: 'rgba(255,255,255,0.65)',
+                            fontSize: '0.8rem',
+                            marginTop: '0.2rem',
+                        }}
+                    >
+                        {project.subtitle}
+                    </p>
                 </div>
             </div>
 
             {/* Content */}
-            <div className="p-6 space-y-4">
-                <h3 className="text-xl font-bold text-white group-hover:text-primary-300 transition-colors duration-300 font-heading">
-                    {project.title}
-                </h3>
+            <div className="p-6 flex-col gap-5">
+                {/* Company Badge */}
+                {project.company && (
+                    <div
+                        className={`${cm.bg} rounded-xl`}
+                        style={{
+                            padding: '0.75rem 1rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.75rem',
+                            border: '1px solid rgba(255,255,255,0.06)',
+                        }}
+                    >
+                        <BuildingOfficeIcon
+                            className={cm.text}
+                            style={{ width: '1.25rem', height: '1.25rem', flexShrink: 0 }}
+                        />
+                        <div>
+                            <p
+                                className={`${cm.text} font-display`}
+                                style={{ fontWeight: 700, fontSize: '0.8rem' }}
+                            >
+                                {project.company}
+                            </p>
+                            <p
+                                className="c-gray-500"
+                                style={{ fontSize: '0.7rem', marginTop: '0.1rem' }}
+                            >
+                                {project.companyPeriod}
+                            </p>
+                        </div>
+                    </div>
+                )}
 
-                <p className="text-dark-400 text-sm leading-relaxed line-clamp-3">
-                    {project.objective}
-                </p>
+                {/* Objective */}
+                <div>
+                    <h4 className={`${cm.text} font-display text-label mb-2`}>
+                        Objective
+                    </h4>
+                    <p className="text-card-body">{project.objective}</p>
+                </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2">
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                     {project.tags.map((tag) => (
-                        <span
-                            key={tag}
-                            className={`text-xs px-2.5 py-1 rounded-lg border ${tagColors[tag] || 'bg-dark-800 text-dark-300 border-dark-700'
-                                }`}
-                        >
+                        <span key={tag} className={`${cm.bg} ${cm.text} tag`}>
                             {tag}
                         </span>
                     ))}
                 </div>
 
-                {/* Expandable Details */}
+                {/* Tools */}
+                <div>
+                    <h4 className={`${cm.text} font-display text-label mb-2`}>
+                        Tools Used
+                    </h4>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                        {project.tools.map((tool) => (
+                            <span key={tool} className="tag-tool">
+                                {tool}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Expand toggle */}
                 <button
                     onClick={() => setExpanded(!expanded)}
-                    className="flex items-center gap-2 text-primary-400 hover:text-primary-300 text-sm font-medium transition-colors duration-300 w-full"
+                    className={`${cm.text} font-display`}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        fontSize: '0.875rem',
+                        fontWeight: 700,
+                        background: 'none',
+                        border: 'none',
+                        padding: 0,
+                        width: '100%',
+                        cursor: 'pointer',
+                    }}
                     aria-expanded={expanded}
-                    aria-controls={`project-details-${project.id}`}
+                    aria-controls={`details-${project.id}`}
                 >
                     {expanded ? 'Show Less' : 'View Full Details'}
                     {expanded ? (
-                        <ChevronUpIcon className="w-4 h-4" />
+                        <ChevronUpIcon style={{ width: '1rem', height: '1rem' }} />
                     ) : (
-                        <ChevronDownIcon className="w-4 h-4" />
+                        <ChevronDownIcon style={{ width: '1rem', height: '1rem' }} />
                     )}
                 </button>
 
+                {/* Expandable content */}
                 <div
-                    id={`project-details-${project.id}`}
-                    className={`overflow-hidden transition-all duration-500 ${expanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
-                        }`}
+                    id={`details-${project.id}`}
+                    style={{
+                        overflow: 'hidden',
+                        maxHeight: expanded ? '3000px' : '0',
+                        opacity: expanded ? 1 : 0,
+                        transition: 'all 0.5s ease',
+                    }}
                 >
-                    <div className="space-y-5 pt-4 border-t border-dark-700/50">
+                    <div
+                        className="flex-col gap-5"
+                        style={{
+                            paddingTop: '1.25rem',
+                            borderTop: '1px solid rgba(255,255,255,0.05)',
+                        }}
+                    >
                         {/* Target Audience */}
                         <div>
-                            <h4 className="text-sm font-semibold text-primary-300 mb-1.5 uppercase tracking-wide">
+                            <h4 className={`${cm.text} font-display text-label mb-2`}>
                                 Target Audience
                             </h4>
-                            <p className="text-dark-400 text-sm leading-relaxed">
-                                {project.targetAudience}
-                            </p>
+                            <p className="text-card-body">{project.targetAudience}</p>
                         </div>
 
                         {/* Strategy */}
                         <div>
-                            <h4 className="text-sm font-semibold text-primary-300 mb-1.5 uppercase tracking-wide">
+                            <h4 className={`${cm.text} font-display text-label mb-2`}>
                                 Strategy & Approach
                             </h4>
-                            <p className="text-dark-400 text-sm leading-relaxed">
-                                {project.strategy}
-                            </p>
-                        </div>
-
-                        {/* Tools */}
-                        <div>
-                            <h4 className="text-sm font-semibold text-primary-300 mb-1.5 uppercase tracking-wide">
-                                Tools Used
-                            </h4>
-                            <div className="flex flex-wrap gap-2">
-                                {project.tools.map((tool) => (
-                                    <span
-                                        key={tool}
-                                        className="text-xs bg-dark-800 text-dark-200 px-3 py-1.5 rounded-lg border border-dark-700"
-                                    >
-                                        {tool}
-                                    </span>
-                                ))}
-                            </div>
+                            <p className="text-card-body">{project.strategy}</p>
                         </div>
 
                         {/* Key Features */}
                         <div>
-                            <h4 className="text-sm font-semibold text-primary-300 mb-1.5 uppercase tracking-wide">
+                            <h4 className={`${cm.text} font-display text-label mb-2`}>
                                 Key Features
                             </h4>
-                            <ul className="space-y-1.5">
-                                {project.keyFeatures.map((feature, i) => (
-                                    <li
-                                        key={i}
-                                        className="text-dark-400 text-sm flex items-start gap-2"
-                                    >
-                                        <span className="text-primary-400 mt-1.5 flex-shrink-0">
-                                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 12 12">
-                                                <circle cx="6" cy="6" r="3" />
-                                            </svg>
-                                        </span>
-                                        {feature}
+                            <ul className="flex-col gap-2">
+                                {project.features.map((f, i) => (
+                                    <li key={i} className="bullet-item">
+                                        <span className={`bullet-marker ${cm.text}`}>◆</span>
+                                        <span>{f}</span>
                                     </li>
                                 ))}
                             </ul>
                         </div>
 
                         {/* Results */}
-                        <div>
-                            <h4 className="text-sm font-semibold text-accent-300 mb-1.5 uppercase tracking-wide">
-                                Results & Outcomes
+                        <div
+                            className={`${cm.bg} rounded-2xl p-5`}
+                            style={{ border: '1px solid rgba(255,255,255,0.06)' }}
+                        >
+                            <h4 className={`${cm.text} font-display text-label mb-2`}>
+                                📊 Results & Outcomes
                             </h4>
-                            <p className="text-dark-400 text-sm leading-relaxed">
+                            <p
+                                className="c-gray-300 text-small"
+                                style={{ lineHeight: 1.7 }}
+                            >
                                 {project.results}
                             </p>
                         </div>
 
                         {/* Reflection */}
-                        <div className="bg-dark-800/50 rounded-xl p-4 border border-dark-700/50">
-                            <h4 className="text-sm font-semibold text-accent-300 mb-1.5 uppercase tracking-wide">
-                                Reflection & Learning
+                        <div
+                            className="bg-surface-overlay rounded-2xl p-5"
+                            style={{ border: '1px solid rgba(255,255,255,0.05)' }}
+                        >
+                            <h4 className="font-display c-gray-300 text-label mb-2">
+                                💭 Reflection & Learning
                             </h4>
-                            <p className="text-dark-400 text-sm leading-relaxed italic">
+                            <p
+                                className="c-gray-500 text-small italic"
+                                style={{ lineHeight: 1.7 }}
+                            >
                                 "{project.reflection}"
                             </p>
                         </div>
